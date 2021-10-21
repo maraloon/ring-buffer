@@ -1,0 +1,12 @@
+{
+  "name": "sidspears/php-ring-buffer",
+  "description": "Ring Buffer realization",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Mara Avgustinskaya",
+      "email": "mara@the-witch.ru"
+    }
+  ],
+  "require": {}
+}
