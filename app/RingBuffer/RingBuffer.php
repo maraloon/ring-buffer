@@ -11,13 +11,11 @@ class RingBuffer implements Buffer {
         $this->stack = array_fill(0, $itemsNumber, null);
     }
 
-    function push(int $item): Buffer {
+    function push($item): void {
         $this->stack[key($this->stack)] = $item;
 
         if (next($this->stack) === false)
             reset($this->stack);
-
-        return $this;
     }
 
     function shift(): int|null {

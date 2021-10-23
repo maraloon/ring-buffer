@@ -4,7 +4,7 @@ namespace App\Contracts\DataStructure;
 
 interface Buffer {
     /* push item into stack */
-    function push(int $item): Buffer;
+    function push($item): void;
 
     /* get first inserted item */
     function shift(): int|null;

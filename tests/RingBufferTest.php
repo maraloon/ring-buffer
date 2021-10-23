@@ -13,11 +13,10 @@ final class RingBufferTest extends TestCase {
         $rb->push(1);
         $this->assertEquals([1], $rb->stack());
 
-        $rb
-            ->push(2)
-            ->push(3)
-            ->push(4)
-            ->push(5);
+        $rb->push(2);
+        $rb->push(3);
+        $rb->push(4);
+        $rb->push(5);
         $this->assertEquals([1, 2, 3, 4, 5], $rb->stack());
 
         $rb->push(6);
@@ -36,7 +35,5 @@ final class RingBufferTest extends TestCase {
         $rb->shift();
         $rb->shift();
         $this->assertEmpty($rb->stack());
-
-//    $rb->shift(); ERROR on null
     }
 }
