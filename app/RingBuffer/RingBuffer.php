@@ -14,9 +14,8 @@ class RingBuffer implements Buffer {
     function push(int $item): Buffer {
         $this->stack[key($this->stack)] = $item;
 
-        key($this->stack) < count($this->stack)-1
-            ? next($this->stack)
-            : reset($this->stack);
+        if (next($this->stack) === false)
+            reset($this->stack);
 
         return $this;
     }
