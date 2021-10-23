@@ -1,53 +1,42 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests;
 
-use App\Contracts\TestWrappers\IsEqual;
 use App\RingBuffer\RingBuffer;
-use DomainException;
+use PHPUnit\Framework\TestCase;
 
-class RingBufferTest {
-    function testRingBuffer() {
-        $rb = $this->ringBufferTester();
-        $rb->is([]);
+final class RingBufferTest extends TestCase {
+    function testRingBuffer(): void {
+        $rb = new RingBuffer(5);
+        $this->assertEmpty($rb->stack());
 
         $rb->push(1);
-        $rb->is([1]);
+        $this->assertEquals([1], $rb->stack());
 
         $rb
             ->push(2)
             ->push(3)
             ->push(4)
             ->push(5);
-        $rb->is([1, 2, 3, 4, 5]);
+        $this->assertEquals([1, 2, 3, 4, 5], $rb->stack());
 
         $rb->push(6);
-        $rb->is([6, 2, 3, 4, 5]);
+        $this->assertEquals([6, 2, 3, 4, 5], $rb->stack());
+
         $rb->push(7);
-        $rb->is([6, 7, 3, 4, 5]);
+        $this->assertEquals([6, 7, 3, 4, 5], $rb->stack());
 
         $rb->shift();
-        $rb->is([7, 3, 4, 5]);
+        $this->assertEquals([7, 3, 4, 5], $rb->stack());
+
         $rb->shift();
-        $rb->is([3, 4, 5]);
+        $this->assertEquals([3, 4, 5], $rb->stack());
 
         $rb->shift();
         $rb->shift();
         $rb->shift();
-        $rb->is([]);
+        $this->assertEmpty($rb->stack());
 
 //    $rb->shift(); ERROR on null
-
     }
-
-    function ringBufferTester(): RingBuffer {
-        return new class extends RingBuffer implements IsEqual {
-            function is(array $expected): void {
-                if ($this->stack !== $expected) {
-                    throw new DomainException("Test failure: expected $expected but stack is $this->stack");
-                }
-            }
-        };
-    }
-
 }
