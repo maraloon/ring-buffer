@@ -3,9 +3,8 @@
 namespace App\Contracts\DataStructure;
 
 interface Buffer {
-    /* push item into stack */
-    function push($item): void;
+    function write($item): void;
 
-    /* get first inserted item */
-    function shift(): int|null;
+    // todo incapsulate to reading interface
+    function read(): mixed;
 }
